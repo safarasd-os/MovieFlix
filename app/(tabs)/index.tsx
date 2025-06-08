@@ -6,7 +6,6 @@ import {
   ActivityIndicator,
   FlatList,
 } from "react-native";
-import { Link } from "expo-router";
 import { images } from "@/constants/images";
 import { icons } from "@/constants/icons";
 import SearchBar from "../components/SearchBar";
@@ -61,9 +60,9 @@ export default function Index() {
                   Trending Movies
                 </Text>
                 <FlatList
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                ItemSeparatorComponent={() => <View className="w-4" />}
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  ItemSeparatorComponent={() => <View className="w-4" />}
                   className="mb-4 mt-3"
                   data={trendingMovies}
                   renderItem={({ item, index }) => (

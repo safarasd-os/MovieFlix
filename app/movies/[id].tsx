@@ -22,7 +22,7 @@ const MovieDetails = () => {
   const { data: movie, loading } = useFetch(() => {
     return fetchMovieDetails(id as string);
   });
-  console.log(movie);
+  
   return (
     <View className="bg-primary flex-1">
       <ScrollView

@@ -1,5 +1,5 @@
 import { Movie, TrendingMovie } from "@/interfaces/interfaces";
-import { Client, Databases, Query, ID } from "react-native-appwrite";
+import { Client, Account, Databases, Query, ID } from "react-native-appwrite";
 
 // track the searches made by a user
 
@@ -9,6 +9,8 @@ const COLLECTION_ID = process.env.EXPO_PUBLIC_APPWRITE_COLLECTION_ID!;
 const client = new Client()
   .setEndpoint("https://cloud.appwrite.io/v1")
   .setProject(process.env.EXPO_PUBLIC_APPWRITE_PROJECT_ID!);
+//account
+export const account = new Account(client);
 
 const database = new Databases(client);
 
@@ -39,10 +41,9 @@ export const updateSearchCount = async (query: string, movie: Movie) => {
         poster_url: movie.Poster,
       });
     }
-    console.log(movie.Title)
   } catch (error) {
     console.log(error);
-    console.log(movie.imdbID);
+
     throw error;
   }
 
