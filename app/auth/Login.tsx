@@ -1,10 +1,45 @@
 import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import { router } from "expo-router";
+import { account } from "@/services/appwrite";
+import Toast from "react-native-toast-message";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const handlePress = async () => {
+    try {
+      // Checks if a session already exists
+      const session = await account.get();
+      console.log("Already logged in:", session);
+      // Navigate to home page if needed
+      router.replace("/(tabs)");
+    } catch (error) {
+      // Not logged in, so create session
+      try {
+        const response = await account.createEmailPasswordSession(
+          email,
+          password
+        );
+        console.log("Login success:", response);
+
+        router.replace("/(tabs)");
+        Toast.show({
+          type: "success",
+          text1: "Login Successful",
+          text2: "Welcome back!",
+        });
+      } catch (error: any) {
+        console.log("Login failed:", error);
+        Toast.show({
+          type: "error",
+          text1: "Login failed",
+          text2: "Wrong password or email",
+        });
+      }
+    }
+  };
 
   return (
     <View className="flex-1 bg-primary justify-center items-center px-6">
@@ -21,6 +56,7 @@ const Login = () => {
             value={email}
             onChangeText={setEmail}
             autoCapitalize="none"
+            keyboardType="email-address"
           />
 
           <TextInput
@@ -30,10 +66,14 @@ const Login = () => {
             value={password}
             onChangeText={setPassword}
             secureTextEntry
+            autoCapitalize="none"
           />
         </View>
 
-        <TouchableOpacity className="bg-accent py-4 rounded-xl items-center">
+        <TouchableOpacity
+          onPress={handlePress}
+          className="bg-accent py-4 rounded-xl items-center"
+        >
           <Text className="text-white text-base font-semibold">Login</Text>
         </TouchableOpacity>
 

@@ -7,7 +7,7 @@ const DATABASE_ID = process.env.EXPO_PUBLIC_APPWRITE_DATABASE_ID!;
 const COLLECTION_ID = process.env.EXPO_PUBLIC_APPWRITE_COLLECTION_ID!;
 
 const client = new Client()
-  .setEndpoint("https://cloud.appwrite.io/v1")
+  .setEndpoint("http://192.168.0.100/v1")
   .setProject(process.env.EXPO_PUBLIC_APPWRITE_PROJECT_ID!);
 //account
 export const account = new Account(client);
