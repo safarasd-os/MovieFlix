@@ -13,8 +13,8 @@ import { useRouter } from "expo-router";
 import useFetch from "@/services/useFetch";
 import { fetchMovies } from "@/services/api";
 import MovieCard from "../components/MovieCard";
-import { getTrendingMovies } from "@/services/appwrite";
 import TrendingCard from "../components/TrendingCard";
+import { getTrendingMovies } from "@/services/getTrendingMovies";
 
 export default function Index() {
   const router = useRouter();

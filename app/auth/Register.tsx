@@ -55,6 +55,8 @@ const Register = () => {
         </Text>
 
         <View className="my-4">
+          <Text className="text-white font-bold">Username:</Text>
+
           <TextInput
             className="bg-secondary text-light-100 p-4 rounded-xl text-base my-4 border-white border-2"
             placeholder="Enter a userName"
@@ -63,6 +65,7 @@ const Register = () => {
             onChangeText={setName}
             autoCapitalize="none"
           />
+          <Text className="text-white font-bold">Email:</Text>
           <TextInput
             className="bg-secondary text-light-100 p-4 rounded-xl text-base my-4 border-white border-2"
             placeholder="Email"
@@ -72,6 +75,8 @@ const Register = () => {
             autoCapitalize="none"
             keyboardType="email-address"
           />
+          <Text className="text-white font-bold">Password:</Text>
+
           <TextInput
             className="bg-secondary text-light-100 p-4 rounded-xl text-base my-4 border-white border-2"
             placeholder="Password"
@@ -81,6 +86,8 @@ const Register = () => {
             secureTextEntry
             autoCapitalize="none"
           />
+          <Text className="text-white font-bold">Confirm the password:</Text>
+
           <TextInput
             className="bg-secondary text-light-100 p-4 rounded-xl text-base my-4 border-white border-2"
             placeholder="Confirm the password"

@@ -6,7 +6,7 @@ import MovieCard from "../components/MovieCard";
 import { icons } from "@/constants/icons";
 import SearchBar from "../components/SearchBar";
 import { useEffect, useState } from "react";
-import { updateSearchCount } from "@/services/appwrite";
+import { updateSearchCount } from "@/services/updateSearchCount";
 
 const search = () => {
   const [searchQuery, setSearchQuery] = useState("");

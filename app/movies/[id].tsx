@@ -3,6 +3,8 @@ import { fetchMovieDetails } from "@/services/api";
 import useFetch from "@/services/useFetch";
 import { router, useLocalSearchParams } from "expo-router";
 import { View, Text, ScrollView, Image, TouchableOpacity } from "react-native";
+import { getSavedMovies, toggleSaveMovie } from "@/services";
+import { useEffect, useState } from "react";
 interface MovieInfoProps {
   label: string;
   value?: string | number | null;
@@ -22,7 +24,31 @@ const MovieDetails = () => {
   const { data: movie, loading } = useFetch(() => {
     return fetchMovieDetails(id as string);
   });
-  
+
+  useEffect(() => {
+    const checkIfSaved = async () => {
+      if (!movie) return; // wait until movie is loaded
+
+      const savedMovies = await getSavedMovies();
+      const isAlreadySaved = savedMovies.some(
+        (m) => m.movie_id === movie.imdbID
+      );
+      setIsSaved(isAlreadySaved);
+    };
+
+    checkIfSaved();
+  }, [movie]); // re-run when movie changes
+  const [isSaved, setIsSaved] = useState(false);
+
+  // Saved movie logic
+  const handleToggleSave = async () => {
+    try {
+      const result = await toggleSaveMovie(movie);
+      setIsSaved(result.saved); // update local state based on toggle result
+    } catch (error) {
+      console.log("Error toggling save: ", error);
+    }
+  };
   return (
     <View className="bg-primary flex-1">
       <ScrollView
@@ -45,12 +71,32 @@ const MovieDetails = () => {
             <Text className="text-light-200 text-sm">{movie?.Year}</Text>
             <Text className="text-light-200 text-sm">{movie?.Runtime}</Text>
           </View>
-          <View className="flex-row items-center bg-dark-100 px-2 py-1 rounded-md gap-x-1 mt-2">
-            <Image source={icons.star} className="size-4" />
-            <Text className="text-white font-bold text-sm">
-              {movie?.imdbRating}/10
-            </Text>
-            <Text className="text-light-200 text-sm">({movie?.imdbVotes})</Text>
+          <View className=" flex-row justify-between w-[100%]">
+            <View className="flex-row items-center bg-dark-100 px-2 py-1 rounded-md gap-x-1 mt-2">
+              <Image source={icons.star} className="size-4" />
+              <Text className="text-white font-bold text-sm">
+                {movie?.imdbRating}/10
+              </Text>
+              <Text className="text-light-200 text-sm">
+                ({movie?.imdbVotes})
+              </Text>
+            </View>
+            <TouchableOpacity
+              onPress={() => handleToggleSave()}
+              className={`flex-row items-center ${
+                isSaved ? "bg-light-100" : "bg-dark-100"
+              } px-2 py-1 rounded-md gap-x-1 mt-2`}
+            >
+              {isSaved ? (
+                <Text className="text-black font-bold text-sm">
+                  Movie Saved
+                </Text>
+              ) : (
+                <Text className="text-white font-bold text-sm">Save Movie</Text>
+              )}
+
+              <Image source={icons.save} className="size-4" />
+            </TouchableOpacity>
           </View>
           <MovieInfo label="Overview" value={movie?.Plot} />
           <MovieInfo label="Genres" value={movie?.Genre} />

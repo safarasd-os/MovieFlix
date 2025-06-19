@@ -1,67 +1,32 @@
-import { Movie, TrendingMovie } from "@/interfaces/interfaces";
-import { Client, Account, Databases, Query, ID } from "react-native-appwrite";
+import * as apw from "appwrite";
+import { Platform } from "react-native";
+import * as aprn from "react-native-appwrite";
+import {
+  Client,
+  Account,
+  Databases,
+  Storage,
+  Storage as aprnStorage,
+  Account as aprnAccount,
+} from "react-native-appwrite";
 
-// track the searches made by a user
-
-const DATABASE_ID = process.env.EXPO_PUBLIC_APPWRITE_DATABASE_ID!;
-const COLLECTION_ID = process.env.EXPO_PUBLIC_APPWRITE_COLLECTION_ID!;
+// env IDs
+export const BUNDLE_ID = process.env.EXPO_PUBLIC_BUNDLE_ID;
+export const PROJECT_ID = process.env.EXPO_PUBLIC_APPWRITE_PROJECT_ID;
+export const APPWRITE_ENDPOINT = process.env.EXPO_PUBLIC_APPWRITE_ENDPOINT;
+export const BUCKET_ID = process.env.EXPO_PUBLIC_APPWRITE_STORAGE_BUCKET_ID;
+export const DATABASE_ID = process.env.EXPO_PUBLIC_APPWRITE_DATABASE_ID!;
+export const COLLECTION_ID = process.env.EXPO_PUBLIC_APPWRITE_COLLECTION_ID!;
+export const SAVED_MOVIE_COLLECTION_ID =
+  process.env.EXPO_PUBLIC_APPWRITE_SAVED_MOVIE_COLLECTION_ID;
 
 const client = new Client()
   .setEndpoint("http://192.168.0.100/v1")
   .setProject(process.env.EXPO_PUBLIC_APPWRITE_PROJECT_ID!);
-//account
+// Account
 export const account = new Account(client);
-
-const database = new Databases(client);
-
-export const updateSearchCount = async (query: string, movie: Movie) => {
-  try {
-    const result = await database.listDocuments(DATABASE_ID, COLLECTION_ID, [
-      Query.equal("searchTerm", query),
-    ]);
-
-    //check if a record of that search has already been stored
-    if (result.documents.length > 0) {
-      const existingMovie = result.documents[0];
-
-      await database.updateDocument(
-        DATABASE_ID,
-        COLLECTION_ID,
-        existingMovie.$id,
-        {
-          count: existingMovie.count + 1,
-        }
-      );
-    } else {
-      await database.createDocument(DATABASE_ID, COLLECTION_ID, ID.unique(), {
-        searchTerm: query,
-        movie_id: movie.imdbID,
-        count: 1,
-        title: movie.Title,
-        poster_url: movie.Poster,
-      });
-    }
-  } catch (error) {
-    console.log(error);
-
-    throw error;
-  }
-
-  //if a document is found increment the searchCount field
-  //if no document is found create a new document in Appwrite database > 1
-};
-export const getTrendingMovies = async (): Promise<
-  TrendingMovie[] | undefined
-> => {
-  try {
-    const result = await database.listDocuments(DATABASE_ID, COLLECTION_ID, [
-      Query.limit(5),
-      Query.orderDesc("count"),
-    ]);
-
-    return result.documents as unknown as TrendingMovie[];
-  } catch (error) {
-    console.log(error);
-    return undefined;
-  }
-};
+// Database
+export const database = new Databases(client);
+// Storage
+export const storage = new Storage(client);
+// upload image
