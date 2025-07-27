@@ -1,50 +1,77 @@
-# Welcome to your Expo app 👋
+# MovieFlix
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+MovieFlix is a mobile app built with React Native that lets users browse, search, and save movies. Users can create an account, upload a profile picture, and explore trending movies based on search popularity.
 
-## Get started
+## Features:
 
-1. Install dependencies
+- Search movies using the free IMDb API
 
-   ```bash
-   npm install
-   ```
+- User registration and login (via Appwrite)
 
-2. Start the app
+- Upload and delete profile pictures
 
-   ```bash
-   npx expo start
-   ```
+- Save favorite movies (user-specific)
 
-In the output, you'll find options to open the app in a
+- Trending movies based on most searched titles
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+- Movie details: poster, description, actors, directors/writers, and title
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+- Built with Expo for easy development and quick testing
 
-## Get a fresh project
+## Tech Stack
 
-When you're ready, run:
+- **Frontend**: React Native + Expo
 
-```bash
-npm run reset-project
-```
+- **Backend**: Appwrite (Authentication, Database, Storage)
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+- **Styling**: Tailwind CSS (via NativeWind)
 
-## Learn more
+- **Dev Tools**: Docker (for Appwrite), Git
 
-To learn more about developing your project with Expo, look at the following resources:
+## Demo
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+A video demo is available on my portfolio website (). It walks through all major features of the app.
 
-## Join the community
+## Backend Setup (Appwrite)
 
-Join our community of developers creating universal apps.
+This project uses Appwrite with docker for backend services for a setup guide go to ./docs/APPWRITE_SETUP.md
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+# Getting Started
+
+- **Clone the repository**
+  `git clone https://github.com/yourusername/MovieFlix.git
+cd MovieFlix`
+
+- **Install dependencies**
+  `npm install` or `yarn install`
+
+- **Configure environment**
+  Create a .env file in the root directory with these variables:
+
+  EXPO_PUBLIC_MOVIE_API_KEY=3847cde2
+  EXPO_PUBLIC_APPWRITE_ENDPOINT=http://your-endpoint/v1
+  EXPO_PUBLIC_APPWRITE_PROJECT_ID=your-project-key
+  EXPO_PUBLIC_APPWRITE_DATABASE_ID=your-database-id
+  EXPO_PUBLIC_APPWRITE_COLLECTION_ID=your-collection-id
+  EXPO_PUBLIC_APPWRITE_SAVED_MOVIE_COLLECTION_ID=your-saved-movie-collection-id
+  EXPO_PUBLIC_APPWRITE_USER_PROFILE_COLLECTION_ID=your-user-profile-collection-id
+  EXPO_PUBLIC_APPWRITE_STORAGE_BUCKET_ID=your-storage-bucket-id
+  EXPO_PUBLIC_BUNDLE_ID=your-bundle-id
+
+  Also configure your Docker .env file accordingly and add both .env files to .gitignore
+
+  **Start the app**
+  `npx expo start`
+
+Make sure your Appwrite backend is running.
+
+## Notes
+
+The UI started from a tutorial, but all the API/backend logic (auth, image uploads, saved movies, metrics) were built independently.
+
+Learned everything through self-study, no formal schooling.
+
+## Contact
+
+Email: tilen.lorenci12@gmail.com
+Phone: +386 40 260 266
