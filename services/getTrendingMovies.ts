@@ -1,4 +1,4 @@
-import { Movie, TrendingMovie } from "@/interfaces/interfaces";
+import { TrendingMovie } from "@/interfaces/interfaces";
 import { COLLECTION_ID, database, DATABASE_ID } from "./appwrite";
 import { Query } from "react-native-appwrite";
 

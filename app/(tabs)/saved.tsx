@@ -1,7 +1,7 @@
 import { icons } from "@/constants/icons";
 import { images } from "@/constants/images";
 import { getSavedMovies } from "@/services/getSavedMovies";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import {
   View,
   Text,

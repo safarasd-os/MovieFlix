@@ -4,3 +4,8 @@ export * from "./getTrendingMovies";
 export * from "./toggleSavedMovie";
 export * from "./updateSearchCount";
 export * from "./useFetch";
+export * from "./deleteProfilePicture";
+export * from "./getUserProfilePicture";
+export * from "./toastConfig";
+export * from "./toggleSavedMovie";
+export * from "./uploadImageAsync";

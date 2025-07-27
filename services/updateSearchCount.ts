@@ -1,9 +1,10 @@
 import { Query } from "react-native-appwrite";
 import { COLLECTION_ID, database, DATABASE_ID } from "./appwrite";
+import { ID } from "appwrite";
 
 export const updateSearchCount = async (query: string, movie: Movie) => {
   try {
-    const result = await data.listDocuments(DATABASE_ID, COLLECTION_ID, [
+    const result = await database.listDocuments(DATABASE_ID, COLLECTION_ID, [
       Query.equal("searchTerm", query),
     ]);
 

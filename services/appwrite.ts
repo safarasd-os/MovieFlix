@@ -1,6 +1,4 @@
-import * as apw from "appwrite";
-import { Platform } from "react-native";
-import * as aprn from "react-native-appwrite";
+
 import {
   Client,
   Account,
@@ -11,6 +9,8 @@ import {
 } from "react-native-appwrite";
 
 // env IDs
+export const USER_PROFILE =
+  process.env.EXPO_PUBLIC_APPWRITE_USER_PROFILE_COLLECTION_ID;
 export const BUNDLE_ID = process.env.EXPO_PUBLIC_BUNDLE_ID;
 export const PROJECT_ID = process.env.EXPO_PUBLIC_APPWRITE_PROJECT_ID;
 export const APPWRITE_ENDPOINT = process.env.EXPO_PUBLIC_APPWRITE_ENDPOINT;
